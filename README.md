@@ -1,5 +1,6 @@
 # Citrus
 ![status](https://img.shields.io/badge/status-Concept-white)
+[![Build Status](https://travis-ci.com/watcol/citrus.svg?branch=main)](https://travis-ci.com/watcol/citrus)
 
 The Citrus Programming Language
 

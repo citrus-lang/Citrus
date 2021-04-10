@@ -1,3 +1,5 @@
 # Summary
 
-- [Overview](./index.md)
+- [Overview](index.md)
+- [Syntax and Semantics](syntax.md)
+- [Compilation Models](models.md)

@@ -17,11 +17,3 @@ include = [
 ]
 
 [dependencies]
-atty = "0.2"
-copypasta = "0.7"
-copypasta-ext = "0.3"
-which = "4.0"
-
-[[bin]]
-name = "clip"
-path = "src/clip.rs"

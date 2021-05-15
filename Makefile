@@ -1,14 +1,37 @@
+SRC            = $(wildcard src/*.c)
+LDFLAGS        =
+DEBUG_FLAGS    = -DDEBUG_BUILD
+DEBUG_DIR      = ./build/debug
+DEBUG_OBJS     = $(addprefix $(DEBUG_DIR)/, $(notdir $(SRC:.c=.o)))
+DEBUG_TARGET   = $(DEBUG_DIR)/main
+RELEASE_FLAGS  =
+RELEASE_DIR    = ./build/release
+RELEASE_OBJS   = $(addprefix $(RELEASE_DIR)/, $(notdir $(SRC:.c=.o)))
+RELEASE_TARGET = $(RELEASE_DIR)/main
 all:
-	make clean
-	make build/main
+	make $(DEBUG_TARGET)
 
-build/main: build/main.o
-	$(CC) -o $@ $^
+release:
+	make $(RELEASE_TARGET)
 
-build/main.o: src/main.c
-	$(COMPILE.c) -o $@ $^
+$(DEBUG_DIR):
+	mkdir -p $@
 
+$(DEBUG_TARGET): $(DEBUG_OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+$(DEBUG_DIR)/%.o: src/%.c $(DEBUG_DIR)
+	$(COMPILE.c) $(DEBUG_FLAGS) -o $@ $<
+
+$(RELEASE_DIR):
+	mkdir -p $@
+
+$(RELEASE_TARGET): $(RELEASE_OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+$(RELEASE_DIR)/%.o: src/%.c $(RELEASE_DIR)
+	$(COMPILE.c) $(RELEASE_FLAGS) -o $@ $<
 clean:
-	$(RM) build/*
+	$(RM) -r build
 
 .PHONY: all clean

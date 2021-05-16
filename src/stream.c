@@ -2,6 +2,7 @@
 #include "citrus.h"
 #include <stdarg.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 Stream *new_stream(char *input) {
   Stream *stream = calloc(1, sizeof(Stream));
@@ -12,7 +13,7 @@ Stream *new_stream(char *input) {
   return stream;
 }
 
-int peek(Stream *buf) { return *buf->cur; }
+char peek(Stream *buf) { return *buf->cur; }
 
 void consume(Stream *buf) {
   int c = peek(buf);
@@ -29,7 +30,7 @@ void error(Stream *buf, char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
 
-  fprintf(stderr, "[%lu,%lu] ", buf->line, buf->col);
+  fprintf(stderr, "[%d,%d] ", buf->line, buf->col);
   vfprintf(stderr, fmt, ap);
   fprintf(stderr, "\n");
   exit(1);

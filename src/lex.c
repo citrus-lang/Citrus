@@ -24,7 +24,7 @@ int lex_space(Stream **buf) {
 }
 
 int lex_num(Token **cur, Stream **buf) {
-  int c = peek(*buf);
+  char c = peek(*buf);
   int val = 0;
   if ('1' <= c && c <= '9') {
     while (true) {

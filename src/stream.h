@@ -1,18 +1,16 @@
 #ifndef _STREAM_H_
 #define _STREAM_H_
 
-#include <stdlib.h>
-
 typedef struct {
   char *input;
   char *cur;
-  size_t col;
-  size_t line;
+  int col;
+  int line;
 } Stream;
 
 Stream *new_stream(char *input);
 
-int peek(Stream *buf);
+char peek(Stream *buf);
 
 void consume(Stream *buf);
 

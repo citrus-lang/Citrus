@@ -13,7 +13,7 @@ Token *new_token(TokenKind kind, Token *cur) {
 }
 
 int lex_space(Stream **buf) {
-  int c = peek(*buf);
+  char c = peek(*buf);
   if (isspace(c)) {
     consume(*buf);
     return true;

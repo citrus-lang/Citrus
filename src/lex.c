@@ -1,3 +1,4 @@
+#include "lex.h"
 #include "citrus.h"
 #include <ctype.h>
 #include <stdarg.h>
@@ -5,13 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct {
-  char *input;
-  char *cur;
-  size_t col;
-  size_t line;
-} Stream;
 
 Stream *new_stream(char *input) {
   Stream *stream = calloc(1, sizeof(Stream));
@@ -44,19 +38,6 @@ void error(Stream *buf, char *fmt, ...) {
   fprintf(stderr, "\n");
   exit(1);
 }
-
-typedef enum {
-  TK_NUM,
-  TK_EOF,
-} TokenKind;
-
-typedef struct Token Token;
-
-struct Token {
-  TokenKind kind;
-  Token *next;
-  int val;
-};
 
 Token *new_token(TokenKind kind, Token *cur) {
   Token *tok = calloc(1, sizeof(Token));

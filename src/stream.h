@@ -2,11 +2,15 @@
 #define _STREAM_H_
 
 typedef struct {
-  char *input;
-  char *cur;
+  char *pos;
   int col;
   int line;
 } Stream;
+
+typedef struct {
+  Stream start;
+  Stream end;
+} Range;
 
 Stream *new_stream(char *input);
 
@@ -14,6 +18,6 @@ char peek(Stream *buf);
 
 void consume(Stream *buf);
 
-void error(Stream *buf, char *fmt, ...);
+void error(Range *range, char *fmt, ...);
 
 #endif

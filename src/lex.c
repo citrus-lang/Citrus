@@ -5,9 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-Token *new_token(TokenKind kind, Token *cur) {
+Token *new_token(TokenKind kind, Token *cur, Range range) {
   Token *tok = calloc(1, sizeof(Token));
   tok->kind = kind;
+  tok->range = range;
   cur->next = tok;
   return tok;
 }
@@ -25,6 +26,8 @@ int lex_space(Stream **buf) {
 int lex_num(Token **cur, Stream **buf) {
   char c = peek(*buf);
   int val = 0;
+  Range range;
+  range.start = **buf;
   if ('1' <= c && c <= '9') {
     while (true) {
       c = peek(*buf);
@@ -39,8 +42,8 @@ int lex_num(Token **cur, Stream **buf) {
   } else {
     return false;
   }
-
-  *cur = new_token(TK_NUM, *cur);
+  range.end = **buf;
+  *cur = new_token(TK_NUM, *cur, range);
   (*cur)->val = val;
   return true;
 }
@@ -52,10 +55,18 @@ Token *lex(char *input) {
   Stream *buf = new_stream(input);
   while (peek(buf)) {
     if (!(lex_space(&buf) || lex_num(&cur, &buf))) {
-      error(buf, "Unnexpected char '%c'.", peek(buf));
+      char c = peek(buf);
+      Range range;
+      range.start = *buf;
+      consume(buf);
+      range.end = *buf;
+      error(&range, "Unnexpected char '%c'.", c);
     }
   }
-  cur = new_token(TK_EOF, cur);
+  Range range;
+  range.start = *buf;
+  range.end = *buf;
+  cur = new_token(TK_EOF, cur, range);
   return head.next;
 }
 

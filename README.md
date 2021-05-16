@@ -1,6 +1,6 @@
 # ![logo] Citrus
 [![CI](https://github.com/citrus-lang/citrus/actions/workflows/test.yml/badge.svg)](https://github.com/citrus-lang/citrus/actions/workflows/test.yml)
-![status](https://img.shields.io/badge/status-Concept-white)
+![status](https://img.shields.io/badge/status-WIP-red)
 
 The Citrus Programming Language
 

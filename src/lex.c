@@ -1,5 +1,4 @@
 #include "lex.h"
-#include "citrus.h"
 #include "stream.h"
 #include <ctype.h>
 #include <stdbool.h>
@@ -61,6 +60,7 @@ Token *lex(char *input) {
 }
 
 #ifdef UNIT_TEST
+#include "test.h"
 int main() {
   Token *a = lex(" 1 \n 42 ");
   assert_int(a->kind, TK_NUM);

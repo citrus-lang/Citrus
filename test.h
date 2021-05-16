@@ -1,20 +1,6 @@
-#ifndef _CITRUS_H_
-#define _CITRUS_H_
+#ifndef _TEST_H_
+#define _TEST_H_
 
-// Debug print macros.
-#ifdef DEBUG_BUILD
-#include <stdio.h>
-#define debug(fmt, ...)                                                        \
-  do {                                                                         \
-    fprintf(stderr, "(%s:%d@%s): ", __FILE__, __LINE__, __func__);             \
-    fprintf(stderr, fmt, ##__VA_ARGS__);                                       \
-  } while (0)
-#else
-#define debug(fmt, ...)
-#endif
-
-// Test macros
-#ifdef UNIT_TEST
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -73,6 +59,5 @@
       exit(1);                                                                 \
     }                                                                          \
   } while (0)
-#endif
 
 #endif

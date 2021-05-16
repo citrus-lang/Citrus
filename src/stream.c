@@ -1,5 +1,4 @@
 #include "stream.h"
-#include "citrus.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,6 +36,7 @@ void error(Stream *buf, char *fmt, ...) {
 }
 
 #ifdef UNIT_TEST
+#include "test.h"
 int main() {
   Stream *buf = new_stream("a\nb");
   assert_int(buf->line, 1);

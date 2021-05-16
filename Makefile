@@ -6,7 +6,7 @@ DEBUG_OBJS     = $(addprefix $(DEBUG_DIR)/, $(patsubst src/%.c,%.o,$(SRC)))
 DEBUG_TARGET   = $(DEBUG_DIR)/main
 RELEASE_FLAGS  =
 RELEASE_DIR    = ./build/release
-RELEASE_OBJS   = $(addprefix $(RELEASE_DIR)/, $(patsubst  src/%.c,%,$(SRC)))
+RELEASE_OBJS   = $(addprefix $(RELEASE_DIR)/, $(patsubst  src/%.c,%.o,$(SRC)))
 RELEASE_TARGET = $(RELEASE_DIR)/main
 UNITTEST_DIR   = ./build/unittest
 UNITTEST_OBJS  = $(filter-out $(DEBUG_DIR)/main.o,$(DEBUG_OBJS))
@@ -34,7 +34,7 @@ $(RELEASE_DIR)/%.o: src/%.c
 
 define UNITTEST
 	[ -d $(dir $(UNITTEST_DIR)/$(1)) ] || mkdir -p $(dir $(UNITTEST_DIR)/$(1))
-	$(CC) $(UNITTEST_FLAGS) -o $(UNITTEST_DIR)/$(1) src/$(1).c $(filter-out $(DEBUG_DIR)/$(1).o,$(UNITTEST_OBJS))
+	$(CC) $(UNITTEST_FLAGS) $(DEBUG_FLAGS) -o $(UNITTEST_DIR)/$(1) src/$(1).c $(filter-out $(DEBUG_DIR)/$(1).o,$(UNITTEST_OBJS))
 	./$(UNITTEST_DIR)/$(1)
 
 endef

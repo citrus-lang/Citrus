@@ -18,9 +18,11 @@ void consume(Stream *buf) {
   int c = peek(buf);
   buf->pos += 1;
   if (c == '\n') {
+    debug("Returned");
     buf->line += 1;
     buf->col = 1;
   } else {
+    debug("Consumed: '%c'", c);
     buf->col += 1;
   }
 }

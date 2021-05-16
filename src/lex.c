@@ -1,4 +1,5 @@
 #include "lex.h"
+#include "debug.h"
 #include "stream.h"
 #include <ctype.h>
 #include <stdbool.h>
@@ -43,6 +44,7 @@ int lex_num(Token **cur, Stream **buf) {
     return false;
   }
   range.end = **buf;
+  debug("Tokenized number '%d'", val);
   *cur = new_token(TK_NUM, *cur, range);
   (*cur)->val = val;
   return true;
